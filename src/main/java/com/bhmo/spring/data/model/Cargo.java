@@ -1,4 +1,4 @@
-package com.brunooliveira.spring.data.model;
+package com.bhmo.spring.data.model;
 
 import javax.persistence.*;
 
@@ -8,7 +8,7 @@ public class Cargo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String descricao;
 
     public Cargo() {
@@ -18,11 +18,11 @@ public class Cargo {
         this.descricao = descricao;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

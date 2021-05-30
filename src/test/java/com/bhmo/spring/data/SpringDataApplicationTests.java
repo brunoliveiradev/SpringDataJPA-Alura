@@ -1,4 +1,4 @@
-package com.brunooliveira.spring.data;
+package com.bhmo.spring.data;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
