@@ -55,8 +55,8 @@ public class CrudCargoService {
 
         Cargo cargo = new Cargo();
         cargo.setDescricao(descricao);
-        cargoRepository.save(cargo);
 
+        cargoRepository.save(cargo);
         System.out.println(descricao + " FOI SALVO!");
     }
 
@@ -65,7 +65,6 @@ public class CrudCargoService {
         int id = scanner.nextInt();
 
         Cargo cargo;
-
         if (this.cargoRepository.findById(id).isPresent()) {
             cargo = this.cargoRepository.findById(id).get();
             System.out.println(cargo.getDescricao() + " LOCALIZADO!");

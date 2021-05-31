@@ -1,6 +1,8 @@
 package com.bhmo.spring.data.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_cargos")
@@ -10,6 +12,9 @@ public class Cargo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
+
+    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL )
+    private List<Funcionario> funcionarios = new ArrayList<>();
 
     public Cargo() {
     }
