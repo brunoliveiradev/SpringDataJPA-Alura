@@ -6,19 +6,25 @@ import com.bhmo.spring.data.service.CrudUnidadeTrabalhoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Scanner;
 
+@EnableJpaRepositories
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
 
-    private final CrudCargoService cargoService;
-    private final CrudFuncionarioService funcionarioService;
-    private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
-
     private Boolean system = true;
 
-    public SpringDataApplication(CrudCargoService cargoService, CrudFuncionarioService funcionarioService, CrudUnidadeTrabalhoService unidadeTrabalhoService) {
+    private final CrudCargoService cargoService;
+
+    private final CrudFuncionarioService funcionarioService;
+
+    private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
+
+    public SpringDataApplication(CrudCargoService cargoService,
+                                 CrudFuncionarioService funcionarioService,
+                                 CrudUnidadeTrabalhoService unidadeTrabalhoService) {
         this.cargoService = cargoService;
         this.funcionarioService = funcionarioService;
         this.unidadeTrabalhoService = unidadeTrabalhoService;
@@ -29,17 +35,17 @@ public class SpringDataApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
-        while(system){
-            System.out.println("Qual ação você quer executar? ");
+        while (system) {
+            System.out.println("Qual função deseja executar?");
             System.out.println("0 - Sair");
-            System.out.println("1 - Cargos");
-            System.out.println("2 - Cargo");
+            System.out.println("1 - Cargo");
+            System.out.println("2 - Funcionário");
             System.out.println("3 - Unidade");
 
-            int function = scanner.nextInt();
+            Integer function = scanner.nextInt();
 
             switch (function) {
                 case 1:

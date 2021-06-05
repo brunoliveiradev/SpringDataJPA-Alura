@@ -1,9 +1,11 @@
 package com.bhmo.spring.data.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,32 +16,20 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private BigDecimal salario;
     private String cpf;
+    private BigDecimal salario;
+    private LocalDate dataContratacao;
 
-    @Column(name = "data_contrato")
-    private LocalDate dataContrato = LocalDate.now();
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "cargo_id", nullable = false)
     private Cargo cargo;
 
+    @Fetch(FetchMode.SELECT)
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "funcionarios_unidade", joinColumns = {
+    @JoinTable(name = "funcionarios_unidades", joinColumns = {
             @JoinColumn(name = "fk_funcionario") },
-            inverseJoinColumns = {
-            @JoinColumn(name = "fk_unidade")})
-    private List<UnidadeTrabalho> unidadeDeTrabalhos = new ArrayList<>();
-
-    public Funcionario() {
-    }
-
-    public Funcionario(String nome, String cpf, BigDecimal salario, Cargo cargo) {
-        this.nome = nome;
-        this.salario = salario;
-        this.cpf = cpf;
-        this.cargo = cargo;
-    }
+            inverseJoinColumns = { @JoinColumn(name = "fk_unidade") })
+    private List<UnidadeTrabalho> unidadeTrabalhos;
 
     public Integer getId() {
         return id;
@@ -54,7 +44,7 @@ public class Funcionario {
     }
 
     public void setNome(String nome) {
-        this.nome = nome.toUpperCase();
+        this.nome = nome;
     }
 
     public String getCpf() {
@@ -65,14 +55,6 @@ public class Funcionario {
         this.cpf = cpf;
     }
 
-    public LocalDate getDataContrato() {
-        return dataContrato;
-    }
-
-    public void setDataContrato(LocalDate dataContrato) {
-        this.dataContrato = dataContrato;
-    }
-
     public BigDecimal getSalario() {
         return salario;
     }
@@ -81,13 +63,12 @@ public class Funcionario {
         this.salario = salario;
     }
 
-
-    public List<UnidadeTrabalho> getUnidadeDeTrabalhos() {
-        return unidadeDeTrabalhos;
+    public LocalDate getDataContratacao() {
+        return dataContratacao;
     }
 
-    public void setUnidadeDeTrabalhos(List<UnidadeTrabalho> unidadeDeTrabalhos) {
-        this.unidadeDeTrabalhos = unidadeDeTrabalhos;
+    public void setDataContratacao(LocalDate dataContratacao) {
+        this.dataContratacao = dataContratacao;
     }
 
     public Cargo getCargo() {
@@ -98,15 +79,17 @@ public class Funcionario {
         this.cargo = cargo;
     }
 
+    public List<UnidadeTrabalho> getUnidadeTrabalhos() {
+        return unidadeTrabalhos;
+    }
+
+    public void setUnidadeTrabalhos(List<UnidadeTrabalho> unidadeTrabalhos) {
+        this.unidadeTrabalhos = unidadeTrabalhos;
+    }
+
     @Override
     public String toString() {
-        return "Funcionário {" +
-                "id = " + id +
-                ", Nome = '" + nome + '\'' +
-                ", salario = " + salario +
-                ", CPF = '" + cpf + '\'' +
-                ", Contratação = " + dataContrato +
-                ", Cargo = " + cargo.getDescricao() +
-                '}';
+        return "Funcionario: " + "id:" + id + "| nome:'" + nome + "| cpf:" + cpf + "| salario:" + salario
+                + "| dataContratacao:" + dataContratacao + "| cargo:" + cargo.getDescricao();
     }
 }

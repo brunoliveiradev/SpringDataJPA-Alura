@@ -10,20 +10,12 @@ public class UnidadeTrabalho {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String descricao;
-    String endereco;
+    private Integer id;
+    private String descricao;
+    private String endereco;
 
-    @ManyToMany(mappedBy = "unidadeDeTrabalhos", fetch = FetchType.EAGER)
-    private List<Funcionario> funcionarios = new ArrayList<>();
-
-    public UnidadeTrabalho() {
-    }
-
-    public UnidadeTrabalho(String descricao, String endereco) {
-        this.descricao = descricao;
-        this.endereco = endereco;
-    }
+    @ManyToMany(mappedBy = "unidadeTrabalhos", fetch = FetchType.EAGER)
+    private List<Funcionario> funcionarios;
 
     public Integer getId() {
         return id;
@@ -59,11 +51,8 @@ public class UnidadeTrabalho {
 
     @Override
     public String toString() {
-        return "Unidades {" +
-                "id=" + id +
-                ", descrição ='" + descricao + '\'' +
-                ", endereço ='" + endereco + '\'' +
-                '}';
+        return "Unidades: " + "id:" + id +
+                "| descricao:" + descricao +
+                "| endereco:" + endereco;
     }
-
 }

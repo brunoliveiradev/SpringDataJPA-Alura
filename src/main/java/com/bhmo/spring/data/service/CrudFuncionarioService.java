@@ -85,10 +85,10 @@ public class CrudFuncionarioService {
         funcionario.setNome(nome);
         funcionario.setCpf(cpf);
         funcionario.setSalario(salario);
-        funcionario.setDataContrato(LocalDate.parse(dataContratacao, formatter));
+        funcionario.setDataContratacao(LocalDate.parse(dataContratacao, formatter));
         Optional<Cargo> cargo = cargoRepository.findById(cargoId);
         funcionario.setCargo(cargo.get());
-        funcionario.setUnidadeDeTrabalhos(unidades);
+        funcionario.setUnidadeTrabalhos(unidades);
 
         funcionarioRepository.save(funcionario);
         System.out.println("Salvo");
@@ -137,7 +137,7 @@ public class CrudFuncionarioService {
         funcionario.setNome(nome);
         funcionario.setCpf(cpf);
         funcionario.setSalario(salario);
-        funcionario.setDataContrato(LocalDate.parse(dataContratacao, formatter));
+        funcionario.setDataContratacao(LocalDate.parse(dataContratacao, formatter));
         Optional<Cargo> cargo = cargoRepository.findById(cargoId);
         funcionario.setCargo(cargo.get());
 

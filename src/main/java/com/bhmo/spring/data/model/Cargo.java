@@ -13,15 +13,8 @@ public class Cargo {
     private Integer id;
     private String descricao;
 
-    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL )
-    private List<Funcionario> funcionarios = new ArrayList<>();
-
-    public Cargo() {
-    }
-
-    public Cargo(String descricao) {
-        this.descricao = descricao;
-    }
+    @OneToMany(mappedBy = "cargo")
+    private List<Funcionario> funcionario;
 
     public Integer getId() {
         return id;
@@ -41,9 +34,7 @@ public class Cargo {
 
     @Override
     public String toString() {
-        return "Cargo{" +
-                "id = " + id +
-                ", descrição = '" + descricao + '\'' +
-                '}';
+        return "Cargo [id=" + id + ", descricao=" + descricao + "]";
     }
+
 }
