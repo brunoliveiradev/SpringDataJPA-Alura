@@ -2,9 +2,10 @@ package com.bhmo.spring.data.service;
 
 import com.bhmo.spring.data.model.Funcionario;
 import com.bhmo.spring.data.repository.FuncionarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class RelatoriosService {
 
     private Boolean system = true;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final FuncionarioRepository funcionarioRepository;
 
@@ -24,6 +26,7 @@ public class RelatoriosService {
             System.out.println("Escolha uma função:");
             System.out.println("0 - Sair");
             System.out.println("1 - Busca funcionário por Nome");
+            System.out.println("2 - Busca funcionário por Nome, Data de Contratação e Salario Maior que");
 
             int action = scanner.nextInt();
 
@@ -31,7 +34,9 @@ public class RelatoriosService {
                 case 1:
                     buscaFuncionarioPorNome(scanner);
                     break;
-
+                case 2:
+                    buscaFuncionarioNomeSalarioMAiorData(scanner);
+                    break;
                 default:
                     system = false;
                     break;
@@ -46,6 +51,22 @@ public class RelatoriosService {
 
         List<Funcionario> funcionarios = funcionarioRepository.findByNome(nome);
 
+        funcionarios.forEach(System.out::println);
+    }
+
+    private void buscaFuncionarioNomeSalarioMAiorData(Scanner scanner) {
+        System.out.println("Qual nome deseja pesquisar?");
+        String nome = scanner.nextLine().toUpperCase();
+        nome += scanner.nextLine().toUpperCase();
+
+        System.out.println("Qual data deseja pesquisar?");
+        String data = scanner.next();
+        LocalDate localDate = LocalDate.parse(data, formatter);
+
+        System.out.println("Qual salario deseja pesquisar?");
+        Double salario = scanner.nextDouble();
+
+        List<Funcionario> funcionarios = funcionarioRepository.findNomeDataSalarioMaiorQue(nome, salario, localDate);
         funcionarios.forEach(System.out::println);
     }
 }
