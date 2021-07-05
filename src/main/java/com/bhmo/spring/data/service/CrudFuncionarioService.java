@@ -6,6 +6,10 @@ import com.bhmo.spring.data.model.UnidadeTrabalho;
 import com.bhmo.spring.data.repository.CargoRepository;
 import com.bhmo.spring.data.repository.FuncionarioRepository;
 import com.bhmo.spring.data.repository.UnidadeTrabalhoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -51,7 +55,7 @@ public class CrudFuncionarioService {
                     atualizar(scanner);
                     break;
                 case 3:
-                    visualizar();
+                    visualizar(scanner);
                     break;
                 case 4:
                     deletar(scanner);
@@ -86,6 +90,7 @@ public class CrudFuncionarioService {
         funcionario.setCpf(cpf);
         funcionario.setSalario(salario);
         funcionario.setDataContratacao(LocalDate.parse(dataContratacao, formatter));
+
         Optional<Cargo> cargo = cargoRepository.findById(cargoId);
         funcionario.setCargo(cargo.get());
         funcionario.setUnidadeTrabalhos(unidades);
@@ -109,7 +114,6 @@ public class CrudFuncionarioService {
                 isTrue = false;
             }
         }
-
         return unidades;
     }
 
@@ -145,8 +149,16 @@ public class CrudFuncionarioService {
         System.out.println("Alterado");
     }
 
-    private void visualizar() {
-        Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+    private void visualizar(Scanner scanner) {
+        System.out.println("Qual página deseja visualizar?");
+        Integer page = scanner.nextInt();
+
+        Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
+        Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
+
+        System.out.println(funcionarios + " - Página atual :" + funcionarios.getNumber());
+        System.out.println("Total de elementos: " + funcionarios.getTotalElements());
+
         funcionarios.forEach(System.out::println);
     }
 
