@@ -1,6 +1,7 @@
 package com.bhmo.spring.data.service;
 
 import com.bhmo.spring.data.model.Funcionario;
+import com.bhmo.spring.data.model.FuncionarioProjecao;
 import com.bhmo.spring.data.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class RelatoriosService {
             System.out.println("1 - Busca funcionário por Nome");
             System.out.println("2 - Busca funcionário por Nome, Data de Contratação e Salario Maior que");
             System.out.println("3 - Busca funcionário por Data de Contratação");
+            System.out.println("4 - Pesquisa funcionário por Salário");
 
             int action = scanner.nextInt();
 
@@ -40,6 +42,9 @@ public class RelatoriosService {
                     break;
                 case 3:
                     buscaFuncionarioDataContratacao(scanner);
+                    break;
+                case 4:
+                    buscaFuncionarioSalario();
                     break;
                 default:
                     system = false;
@@ -81,5 +86,11 @@ public class RelatoriosService {
 
         List<Funcionario> funcionarios = funcionarioRepository.findDataContratacaoMaiorQue(localDate);
         funcionarios.forEach(System.out::println);
+    }
+
+    private void buscaFuncionarioSalario(){
+        List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario();
+        list.forEach(funcionario -> System.out.println("Funcionário: id: " + funcionario.getId()
+        + " | nome: " + funcionario.getNome() + " | salário: " + funcionario.getSalario()));
     }
 }

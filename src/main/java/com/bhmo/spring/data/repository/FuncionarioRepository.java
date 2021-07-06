@@ -1,6 +1,7 @@
 package com.bhmo.spring.data.repository;
 
 import com.bhmo.spring.data.model.Funcionario;
+import com.bhmo.spring.data.model.FuncionarioProjecao;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,10 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     //Native Query - nome da tabela e atributos tem que ser igual ao do banco de dados
     @Query(value = "SELECT * FROM tb_funcionarios AS F WHERE F.data_contrato >= :data", nativeQuery = true)
     List<Funcionario> findDataContratacaoMaiorQue(LocalDate data);
+
+    //Native Query usando projeção
+    @Query(value = "SELECT F.id, F.nome, F.salario FROM tb_funcionarios AS F", nativeQuery = true)
+    List<FuncionarioProjecao> findFuncionarioSalario();
+
+
 }
