@@ -1,9 +1,6 @@
 package com.bhmo.spring.data;
 
-import com.bhmo.spring.data.service.CrudCargoService;
-import com.bhmo.spring.data.service.CrudFuncionarioService;
-import com.bhmo.spring.data.service.CrudUnidadeTrabalhoService;
-import com.bhmo.spring.data.service.RelatoriosService;
+import com.bhmo.spring.data.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,15 +18,17 @@ public class SpringDataApplication implements CommandLineRunner {
     private final CrudFuncionarioService funcionarioService;
     private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
     private final RelatoriosService relatoriosService;
+    private final RelatorioDinamicoFuncionario relatorioDinamicoFuncionario;
 
     public SpringDataApplication(CrudCargoService cargoService,
                                  CrudFuncionarioService funcionarioService,
                                  CrudUnidadeTrabalhoService unidadeTrabalhoService,
-                                 RelatoriosService relatoriosService) {
+                                 RelatoriosService relatoriosService, RelatorioDinamicoFuncionario relatorioDinamicoFuncionario) {
         this.cargoService = cargoService;
         this.funcionarioService = funcionarioService;
         this.unidadeTrabalhoService = unidadeTrabalhoService;
         this.relatoriosService = relatoriosService;
+        this.relatorioDinamicoFuncionario = relatorioDinamicoFuncionario;
     }
 
     public static void main(String[] args) {
@@ -47,6 +46,7 @@ public class SpringDataApplication implements CommandLineRunner {
             System.out.println("2 - Funcionário");
             System.out.println("3 - Unidade");
             System.out.println("4 - Relatórios");
+            System.out.println("5 - Relatórios Dinâmico do Funcionário");
 
             Integer function = scanner.nextInt();
 
@@ -62,6 +62,9 @@ public class SpringDataApplication implements CommandLineRunner {
                     break;
                 case 4:
                     relatoriosService.iniciar(scanner);
+                    break;
+                case 5:
+                    relatorioDinamicoFuncionario.iniciar(scanner);
                     break;
                 default:
                     System.out.println("Finalizando");

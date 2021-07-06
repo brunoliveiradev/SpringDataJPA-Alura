@@ -4,6 +4,7 @@ import com.bhmo.spring.data.model.Funcionario;
 import com.bhmo.spring.data.model.FuncionarioProjecao;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
+public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer>, JpaSpecificationExecutor<Funcionario> {
 
     //Derivated Query - findBy + atributo java
     List<Funcionario> findByNome(String nome);
