@@ -19,7 +19,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 
     List<Funcionario> findByNome(String nome, Pageable pageable);
 
-// Derivated Query equivalente a JPQL abaixo: List<Funcionario> findByNomeAndSalarioGreaterThanAndDataContratacao(String nome, Double salario, LocalDate dataContratacao);
+    // Derivated Query equivalente a JPQL abaixo: List<Funcionario> findByNomeAndSalarioGreaterThanAndDataContratacao(String nome, Double salario, LocalDate dataContratacao);
 
     //JPQL - nome igual as entidades e atributos do java
     @Query("SELECT F FROM Funcionario F WHERE F.nome = :nome " +
@@ -33,6 +33,5 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     //Native Query usando projeção
     @Query(value = "SELECT F.id, F.nome, F.salario FROM tb_funcionarios AS F", nativeQuery = true)
     List<FuncionarioProjecao> findFuncionarioSalario();
-
 
 }
